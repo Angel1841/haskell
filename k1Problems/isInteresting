@@ -1,0 +1,19 @@
+{-
+    An interesting number is a natural number that is divisible without remainder by the sum of its
+digits. For example, the number 410 is interesting because 4 + 1 + 0 = 5 is divisible by 410. Write
+function that checks whether a natural number n is interesting.
+-}
+
+main::IO()
+main=do
+    print $ isInteresting 410 5 == True 
+
+isInteresting :: Int -> Int -> Bool
+isInteresting n a = helper n 0
+    where 
+        helper :: Int -> Int -> Bool
+        helper n sum
+            | n == 0 && sum == a = True
+            | n == 0 && sum /= a = False
+            | otherwise = helper (div n 10) (sum + mod n 10)
+
