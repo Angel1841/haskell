@@ -1,0 +1,17 @@
+main::IO()
+main = do
+    print $ reverseOrdSuff 37563-- == 36
+    print $ reverseOrdSuff 32763-- == 367
+    print $ reverseOrdSuff 32567-- == 7
+    print $ reverseOrdSuff 32666-- == 6
+
+reverseOrdSuff :: Int -> Int
+reverseOrdSuff k
+    | k < 10 = k  -- Ако числото е едноцифрено, връщаме го непроменено
+    | otherwise = reverseSuffix k 0 0  -- В противен случай намираме най-дългия строго низходящ суфикс
+    where
+        reverseSuffix :: Int -> Int -> Int -> Int
+        reverseSuffix 0 _ maxSuffix = maxSuffix  -- Приключваме рекурсията и връщаме най-дългия строго низходящ суфикс
+        reverseSuffix n lastDigit maxSuffix
+            | n `mod` 10 > lastDigit = reverseSuffix (n `div` 10) (n `mod` 10) (maxSuffix * 10 + mod n 10)  -- Ако текущата цифра е по-малка от предишната, обновяваме максималния суфикс
+            | otherwise = maxSuffix
